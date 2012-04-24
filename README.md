@@ -11,7 +11,7 @@ leinjacker is a library of utilities for Leiningen plug-in developers.  Current 
 Just drop the following into your plug-in’s `project.clj`:
 
 ````clojure
-(defprojct lein-tau "6.283"
+(defproject lein-tau "6.283"
   :name "The π is a lie!"
   // other stuff
   :dependecies [[leinjacker "0.1.0"]
