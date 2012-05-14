@@ -1,4 +1,4 @@
-(ns leinjacker.eval-in-project
+(ns leinjacker.eval
   "Provides an eval-in-project function that should work for both Leiningen 1
   and Leiningen 2."
   {:author "Daniel Solano Gómez"}
