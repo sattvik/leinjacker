@@ -26,4 +26,17 @@
       (throw (IllegalArgumentException.
               "Unable to resolve a valid symbol from the given list.")))))
 
+(defn lein-generation
+  "Returns 1 if called under lein 1.x, 2 if called under lein 2.x."
+  []
+  (if (try-resolve 'leiningen.core.main/-main) 2 1))
+
+(defn lein-home
+  "Returns the leiningen home directory (typically ~/.lein/). This function
+   abstracts away the differences in calling the leiningen-home method between
+   lein 1 and lein 2"
+  []
+  ((try-resolve-any
+    'leiningen.util.paths/leiningen-home   ;; lein1
+    'leiningen.core.user/leiningen-home))) ;; lein2
 
