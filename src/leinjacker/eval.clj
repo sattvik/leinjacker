@@ -16,3 +16,10 @@
      (throw (IllegalStateException. "Unable to resolve a Leiningen eval-in-project."))))
   ([project form]
    (eval-in-project project form '())))
+
+(defn sh
+  "Support Leinigen's version of sh for both 1.x and 2.x."
+  [& args]
+  (apply (utils/try-resolve-any
+          'leiningen.compile/sh
+          'leiningen.core.eval/sh) args))

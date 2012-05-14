@@ -38,7 +38,7 @@
   "Runs the midje command for the given generation of lein in test-project/"
   [generation]
   (let [cmd (find-lein-cmd generation)]
-    (println "==> Running" (str \' cmd " midje'") "in test-project/")
+    (println "\n==> Running" (str \' cmd " midje'") "in test-project/")
     (let [result (shell/sh cmd "midje"
                            :dir "test-project"
                            :env (assoc (into {} (System/getenv))
