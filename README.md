@@ -25,6 +25,8 @@ Although this library is built using Leiningen 2, the library itself does not re
 
 If you ever find yourself writing the same generic code in more than one of your plug-ins, feel free to send it here.
 
+* Tobias Crawley
+
 ## License
 
 Copyright © 2012 Sattvik Software & Technology Resources, Ltd. Co.
