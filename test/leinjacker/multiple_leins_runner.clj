@@ -7,6 +7,12 @@
             [leinjacker.utils   :as utils]
             [leiningen.install  :as install]))
 
+(defn- clean-lein-env
+  "Gets a copy of the system environment tha removes Leiningen environment variables."
+  []
+  (dissoc (into {} (System/getenv))
+          "CLASSPATH" "LEIN_JVM_OPTS"))
+
 (defn- memoize-to-file
   "Memoizes the result if not-found-fn under key in filename."
   [filename key not-found-fn]
@@ -26,7 +32,7 @@
                    #(if-let [cmd (some
                                   (fn [cmd]
                                     (try
-                                      (if (.contains (:out (shell/sh cmd "version"))
+                                      (if (.contains (:out (shell/sh cmd "version" :env (clean-lein-env)))
                                                      (str "Leiningen " generation "."))
                                         cmd)
                                       (catch java.io.IOException _)))
@@ -41,8 +47,8 @@
     (println "\n==> Running" (str \' cmd " midje'") "in test-project/")
     (let [result (shell/sh cmd "midje"
                            :dir "test-project"
-                           :env (assoc (into {} (System/getenv))
-                                  "LEIN_GENERATION" generation))]
+                           :env (assoc (clean-lein-env)
+                                       "LEIN_GENERATION" generation))]
       (print (:out result))
       (print (:err result))
       (println "==> Done\n")
@@ -53,7 +59,7 @@
 
 (fact "run lein1 tests."
   ;; lein1 needs deps resolved to see the installed leinjacker
-  (shell/sh (find-lein-cmd "1") "deps" :dir "test-project")
+  (shell/sh (find-lein-cmd "1") "deps" :dir "test-project" :env (clean-lein-env))
   (run-lein-on-sub-project "1") => 0)
 
 (fact "run lein2 tests."
