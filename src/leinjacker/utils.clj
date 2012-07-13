@@ -1,5 +1,5 @@
 (ns leinjacker.utils
-  "Assorted utilities that didn't seem to fit anywhere else."
+  "Useful utilities for plugins supporting lein 1 and 2."
   {:author "Daniel Solano Gómez"}
   (:use [trammel.core :only [defconstrainedfn]]))
 
@@ -15,8 +15,8 @@
 
 (defconstrainedfn try-resolve-any
   "Attempts to resolve the given namespace-qualified symbols. Returns the
-   first successfully resolved symbol, or nil if none of the given symbols
-   resolve."
+   first successfully resolved symbol, or throws an IllegalArgumentException
+   if none of the given symbols resolve."
   [& syms]
   [(every? symbol? syms)]
   (if-let [sym (try-resolve (first syms))]
