@@ -1,6 +1,6 @@
 (ns leinjacker.eval
-  "Provides an eval-in-project function that should work for both Leiningen 1
-  and Leiningen 2."
+  "Provides an eval-in-project function and hook that should work for both Leiningen 1
+  and Leiningen 2. Also provides apply-task, to chain to other tasks."
   {:author "Daniel Solano Gómez"}
   (:require [leinjacker.utils :as utils])
   (:require [robert.hooke]))
@@ -44,3 +44,13 @@
   (apply (utils/try-resolve-any
           'leiningen.compile/sh
           'leiningen.core.eval/sh) args))
+
+(defn apply-task
+  "Allow for invoking other Leiningen tasks. Takes the args as a seq."
+  [subtask project args]
+  (if-let [apply-task (utils/try-resolve 'leiningen.core.main/apply-task)]
+    (apply-task subtask project args)
+    ((utils/try-resolve 'leiningen.core/apply-task)
+       subtask project args
+       ;lein1 has a 4 argument form, which expects a not-found fn.
+       (try-resolve 'leiningen.core/task-not-found))))
