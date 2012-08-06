@@ -20,7 +20,8 @@ leinjacker is a library of utilities for Leiningen plug-in developers.  Current 
    * `read-lein-project` - reads a `project.clj` and returns the project map. This
      abstracts away the location and name of Leiningen's project read function, 
      since it was renamed between generations.
-     
+   * `abort` - 1.x- and 2.x-compatible way to signal task failure.
+
 ## Usage
 
 Just drop the following into your plug-in’s `project.clj`:
