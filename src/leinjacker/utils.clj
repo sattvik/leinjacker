@@ -57,3 +57,9 @@
     ([]
        (read-project-fn))))
 
+(defn abort
+  "Signal a fatal error and print msg to stderr."
+  [& msg]
+  (let [abort (try-resolve-any 'leiningen.core/abort        ; lein1
+                               'leiningen.core.main/abort)] ; lein2
+    (apply abort msg)))
