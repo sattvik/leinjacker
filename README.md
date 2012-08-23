@@ -39,9 +39,13 @@ Although this library is built using Leiningen 2, the library itself does not re
 
 ## Contributing
 
-If you ever find yourself writing the same generic code in more than one of your plug-ins, feel free to send it here.
+If you ever find yourself writing the same generic code in more than one of your plug-ins, feel free to send it here. 
 
+### Contributors
+
+* Daniel Solano Gómez
 * Tobias Crawley
+* Phil Hagelberg
 
 ## License
 
