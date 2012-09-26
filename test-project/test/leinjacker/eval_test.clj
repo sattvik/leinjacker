@@ -22,4 +22,18 @@
 
   (fact "sh should work."
     (sh "./bin/sh-test" ".test-output" "success")
-    (slurp ".test-output") => "success"))
+    (slurp ".test-output") => "success")
+ 
+  ;This test should be last since it hooks eip and doesn't clean up 
+  (fact "we should be able to hook eval-in-project"
+    (let [my-form '(spit ".test-output" "success")  
+          ran-form (atom nil)]
+      (hook-eval-in-project
+        (fn [original-eip project form init]
+          (reset! ran-form form)
+          (original-eip project form init)))
+     (dep-eip/eval-in-project
+       (utils/read-lein-project)
+       my-form) 
+    @ran-form => my-form 
+    (slurp ".test-output") => "success"))) 

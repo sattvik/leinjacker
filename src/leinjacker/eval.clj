@@ -16,13 +16,13 @@
   The 4 arguments are `[original-eip, project, form, init]`."
   [f]
   (let [gen (utils/lein-generation)]
-    (with-local-vars [eip1 (fn [eip project form _ _ init] (f eip project form init))
-                      eip2 (fn [eip project form init] (f eip project form init))]
+    (let [eip1 (fn [eip project form _ _ init] (f eip project form init))
+          eip2 (fn [eip project form init] (f eip project form init))]
       (condp = gen
         1 (robert.hooke/add-hook
-            (try-resolve 'leiningen.compile/eval-in-project) eip1)
+            (utils/try-resolve 'leiningen.compile/eval-in-project) eip1)
         2 (robert.hooke/add-hook
-            (try-resolve 'leiningen.core.eval/eval-in-project) eip2)
+            (utils/try-resolve 'leiningen.core.eval/eval-in-project) eip2)
         (throw (IllegalStateException. "Unknown Leiningen generation."))))))
 
 (defn eval-in-project
@@ -53,4 +53,4 @@
     ((utils/try-resolve 'leiningen.core/apply-task)
        subtask project args
        ;lein1 has a 4 argument form, which expects a not-found fn.
-       (try-resolve 'leiningen.core/task-not-found))))
+       (utils/try-resolve 'leiningen.core/task-not-found))))
