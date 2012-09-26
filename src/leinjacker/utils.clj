@@ -62,3 +62,10 @@
   [project]
   (try-resolve-any 'leiningen.core.classpath/get-classpath
                    'leiningen.classpath/get-classpath) project)
+
+(defn abort
+  "Signal a fatal error and print msg to stderr."
+  [& msg]
+  (let [abort (try-resolve-any 'leiningen.core/abort        ; lein1
+                               'leiningen.core.main/abort)] ; lein2
+    (apply abort msg)))
