@@ -17,7 +17,7 @@ leinjacker is a library of utilities for Leiningen plug-in developers.  Current 
   * `try-resolve` and `try-resolve-any` - useful for resolving namespaced symbols at
     runtime.
   * `lein-generation` - returns the current Leiningen generation (1 or 2) as an integer.
-  * `lein-home` - returns the path to current Leiningen home (typically `~/.lein/`. This
+  * `lein-home` - returns the path to current Leiningen home (typically `~/.lein/`). This
     abstracts away the location of Leiningen's `leiningen-home`, since it moved between
     generations.
   * `read-lein-project` - reads a `project.clj` and returns the project map. This
