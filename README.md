@@ -3,7 +3,10 @@
 leinjacker is a library of utilities for Leiningen plug-in developers.  Current features include:
 
 * `leinjacker.eval` gives you an easy way for your project to call `eval-in-project` or `sh` 
-  and have it work independent of the version of Leiningen the user is running.
+  and have it work independent of the version of Leiningen the user is running. Additionally,
+  there is a function `hook-eval-in-project`. This function can be used provide custom behavior
+  (like middleware) for `eval-in-project`, such as for code instrumentation or alternative JVM
+  launching scripts.
 
 * `leinjacker.deps` adds some handy functions for querying and manipulating the dependencies 
   of a project.
@@ -21,6 +24,8 @@ leinjacker is a library of utilities for Leiningen plug-in developers.  Current 
     abstracts away the location and name of Leiningen's project read function, 
     since it was renamed between generations.
   * `abort` - 1.x- and 2.x-compatible way to signal task failure.
+  * `apply-task` - 1.x- and 2.x-compatible way to apply arguments to a task.
+  * `get-classpath` - 1.x- and 2.x-compatible way to get the classpath from a project map.
 
 * `leinjacker.lein-runner` has functions for finding and running the `lein` command on the
   path for each Leiningen generation. Useful for testing plugins under various Leiningen
@@ -60,6 +65,7 @@ If you ever find yourself writing the same generic code in more than one of your
 * Daniel Solano Gómez
 * Tobias Crawley
 * Phil Hagelberg
+* David Greenberg
 
 ## License
 
