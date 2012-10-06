@@ -26,7 +26,10 @@
  
   ;This test should be last since it hooks eip and doesn't clean up 
   (fact "we should be able to hook eval-in-project"
-    (let [my-form '(spit ".test-output" "success")  
+    (let [my-form '(do
+                     (in-ns 'foo.bar)
+                     (spit ".test-output" (with-out-str
+                                            ((resolve 'pprint) "success"))))  
           ran-form (atom nil)]
       (hook-eval-in-project
         (fn [original-eip project form init]
@@ -34,6 +37,10 @@
           (original-eip project form init)))
      (dep-eip/eval-in-project
        (utils/read-lein-project)
-       my-form) 
+       my-form
+       '(do (let [old-ns *ns*]
+              (ns foo.bar)
+              (clojure.core/use 'clojure.pprint)
+              (in-ns (symbol (ns-name old-ns)))))) 
     @ran-form => my-form 
-    (slurp ".test-output") => "success"))) 
+    (slurp ".test-output") => "\"success\"\n"))) 
