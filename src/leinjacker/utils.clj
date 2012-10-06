@@ -1,6 +1,7 @@
 (ns leinjacker.utils
   "Useful utilities for plugins supporting lein 1 and 2."
   {:author "Daniel Solano Gómez"}
+  (:require [clojure.set :as set])
   (:use [trammel.core :only [defconstrainedfn]]))
 
 (defconstrainedfn try-resolve
@@ -69,3 +70,40 @@
   (let [abort (try-resolve-any 'leiningen.core/abort        ; lein1
                                'leiningen.core.main/abort)] ; lein2
     (apply abort msg)))
+
+(defn- profile-key-merge
+  [result latter]
+  (cond (and (map? result) (map? latter))
+        (merge-with profile-key-merge result latter)
+        (and (set? result) (set? latter))
+        (set/union result latter)
+        (and (coll? result) (coll? latter))
+        (concat result latter)
+        (= (class result) (class latter))
+        latter
+        :else
+        (doto latter (println "has a type mismatch merging profiles."))))
+
+(defn- lein2-merge-profile
+  [project other]
+  (let [profile-name (-> (gensym) name keyword)
+        add-profiles (try-resolve 'leiningen.core.project/add-profiles)
+        merge-profiles (try-resolve 'leiningen.core.project/merge-profiles)
+        added-profile (add-profiles project
+                                    {profile-name other})
+        merged-profile (merge-profiles added-profile [profile-name])]
+    merged-profile))
+
+
+(defn merge-projects
+  "Takes an existing project map and another map and merges
+  the new map into the project map in such a way that it will
+  be preserved through Lein2's profile munging, and also work
+  in Lein1. This also allows for Lein2's profile merging logic to be used in
+  Lein1."
+  [project other]
+  (let [generation (lein-generation)
+        merge-fn (if (= 1 generation)
+                   #(merge-with profile-key-merge %1 %2)
+                   lein2-merge-profile)]
+    (merge-fn project other)))
