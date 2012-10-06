@@ -16,7 +16,7 @@
   The 4 arguments are `[original-eip, project, form, init]`."
   [f]
   (let [gen (utils/lein-generation)]
-    (let [eip1 (fn [eip project form _ _ init] (f eip project form init))
+    (let [eip1 (fn [eip project form _ _ init] (f #(eip %1 %2 nil nil %3) project form init))
           eip2 (fn [eip project form init] (f eip project form init))]
       (condp = gen
         1 (robert.hooke/add-hook
