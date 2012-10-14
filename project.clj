@@ -1,4 +1,4 @@
-(defproject leinjacker "0.3.2"
+(defproject leinjacker "0.4.0-SNAPSHOT"
   :description "A library for Leiningen plug-in authors."
   :url "https://github.com/sattvik/leinjacker"
   :license {:name "Eclipse Public License"
