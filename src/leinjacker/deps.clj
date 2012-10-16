@@ -1,7 +1,7 @@
 (ns leinjacker.deps
   "Utilities for managing the dependencies of a Leiningen project."
   {:author "Daniel Solano Gómez"}
-  (:use [trammel.core :only [defconstrainedfn]]))
+  (:use leinjacker.defconstrainedfn))
 
 (defn dep-spec?
   "Returns a value that evaluates to true if the argument appears to be a valid

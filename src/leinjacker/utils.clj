@@ -2,7 +2,7 @@
   "Useful utilities for plugins supporting lein 1 and 2."
   {:author "Daniel Solano Gómez"}
   (:require [clojure.set :as set])
-  (:use [trammel.core :only [defconstrainedfn]]))
+  (:use leinjacker.defconstrainedfn))
 
 (defconstrainedfn try-resolve
   "Attempts to resolve the given namespace-qualified symbol.  If successful,
