@@ -53,7 +53,7 @@ Just drop the following into your plug-in’s `project.clj`:
 (defproject lein-tau "6.283"
   :name "The π is a lie!"
   // other stuff
-  :dependecies [[leinjacker "0.3.3"]
+  :dependecies [[leinjacker "0.4.0"]
                 // more deps
 		])
 ````
