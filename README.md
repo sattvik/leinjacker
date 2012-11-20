@@ -70,6 +70,7 @@ If you ever find yourself writing the same generic code in more than one of your
 * Tobias Crawley
 * Phil Hagelberg
 * David Greenberg
+* Justin Balthrop
 
 ## License
 
