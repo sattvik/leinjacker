@@ -54,3 +54,28 @@
        subtask project args
        ;lein1 has a 4 argument form, which expects a not-found fn.
        (utils/try-resolve 'leiningen.core/task-not-found))))
+
+(defmacro in-project
+  "Execute code in the project. You can pass state from lein to the project
+   using the bindings vector. Note that the forms in bindings must be printable
+   and readable. You can set up the namespace the code will execute in by
+   optionally passing a first form like: (ns (:use ...) (:require ...))
+
+   For example:
+    (in-project project [foo [\"bar\" \"baz\" \"bam\"]]
+      (ns (:require [clojure.string :refer [join]])
+      (prn (join \",\" foo)))"
+  {:arglists '([project ns-forms* bindings? body*])}
+  [project bindings & [form :as forms]]
+  (let [bindings (apply hash-map bindings)
+        [ns-forms forms] (if (= 'ns (first form))
+                           [(rest form) (rest forms)]
+                           [nil forms])
+        ns-forms (if (symbol? (first ns-forms))
+                   ns-forms
+                   (cons (gensym) ns-forms))
+        f `(fn [[~@(keys bindings)]] ~@forms)]
+    `(eval-in-project ~project
+                      (list 'do
+                            '(ns ~@ns-forms)
+                            (list '~f (list 'quote [~@(vals bindings)]))))))
