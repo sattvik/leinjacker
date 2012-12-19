@@ -33,7 +33,7 @@
   a symbol."
   [project dep]
   [(dep? dep)
-   (vector? (:dependencies project []))]
+   (sequential? (:dependencies project []))]
   (when-let [deps (:dependencies project)]
     (let [name (if (dep-spec? dep)
                  (dep-name dep)
@@ -44,7 +44,7 @@
   "Adds the dependency to the project, but only if it doesn't exist already."
   [project dep-spec]
   [(dep-spec? dep-spec)
-   (vector? (:dependencies project []))
+   (sequential? (:dependencies project []))
    =>
    (has-dep? % dep-spec)]
   (if (has-dep? project dep-spec)
