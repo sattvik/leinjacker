@@ -53,7 +53,7 @@ Just drop the following into your plug-in’s `project.clj`:
 (defproject lein-tau "6.283"
   :name "The π is a lie!"
   // other stuff
-  :dependecies [[leinjacker "0.4.0"]
+  :dependecies [[leinjacker "0.4.1"]
                 // more deps
 		])
 ````
@@ -71,6 +71,7 @@ If you ever find yourself writing the same generic code in more than one of your
 * Phil Hagelberg
 * David Greenberg
 * Justin Balthrop
+* Anthony Grimes
 
 ## License
 
