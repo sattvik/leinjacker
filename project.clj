@@ -1,4 +1,4 @@
-(defproject leinjacker "0.5.0-SNAPSHOT"
+(defproject leinjacker "0.4.2-SNAPSHOT"
   :description "A library for Leiningen plug-in authors."
   :url "https://github.com/sattvik/leinjacker"
   :license {:name "Eclipse Public License"
@@ -8,4 +8,5 @@
   :profiles {:dev {:dependencies [[midje "1.3.1"]
                                   [org.clojure/clojure "1.4.0"]]
                    :eval-in :leiningen}
-             :1.2 {:dependencies [[org.clojure/clojure "1.2.1"]]}})
+             :1.2 {:dependencies [[org.clojure/clojure "1.2.1"]]}}
+  :lein-release {:deploy-via :clojars})
