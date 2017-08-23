@@ -11,6 +11,13 @@
   truthy     ['org.clojure/clojure "1.2.1"]
   truthy     ['vimclojure/server "3.2.1" :exclusions ['org.clojure/clojure]]
   truthy     ['vimclojure/server "3.2.1" :scope "test"]
+  truthy     ['vimclojure/server "3.2.1" :exclusions ['org.clojure/clojure] :scope "test"]
+  truthy     ['org.clojure/clojure]
+  truthy     ['org.clojure/clojure nil]
+  truthy     ['vimclojure/server :exclusions ['org.clojure/clojure]]
+  truthy     ['vimclojure/server nil :exclusions ['org.clojure/clojure]]
+  truthy     ['vimclojure/server :exclusions ['org.clojure/clojure] :scope "test"]
+  truthy     ['vimclojure/server nil :exclusions ['org.clojure/clojure] :scope "test"]
 
   ; though valid deps, these aren't dep-specs
   falsey     'typed
@@ -20,8 +27,6 @@
   falsey     '('org.clojure/clojure "1.3.0")
   ; empty
   falsey     []
-  ; missing version
-  falsey     ['foo]
   ; name is not a symbol
   falsey     [:foo "0.0"]
   ; version is not a string
@@ -38,6 +43,13 @@
   truthy     ['org.clojure/clojure "1.2.1"]
   truthy     ['vimclojure/server "3.2.1" :exclusions ['org.clojure/clojure]]
   truthy     ['vimclojure/server "3.2.1" :scope "test"]
+  truthy     ['vimclojure/server "3.2.1" :exclusions ['org.clojure/clojure] :scope "test"]
+  truthy     ['org.clojure/clojure]
+  truthy     ['org.clojure/clojure nil]
+  truthy     ['vimclojure/server :exclusions ['org.clojure/clojure]]
+  truthy     ['vimclojure/server nil :exclusions ['org.clojure/clojure]]
+  truthy     ['vimclojure/server :exclusions ['org.clojure/clojure] :scope "test"]
+  truthy     ['vimclojure/server nil :exclusions ['org.clojure/clojure] :scope "test"]
   truthy     'typed
   truthy     'org.clojure/clojure
 
@@ -45,8 +57,6 @@
   falsey     '('org.clojure/clojure "1.3.0")
   ; empty
   falsey     []
-  ; missing version
-  falsey     ['foo]
   ; name is not a symbol
   falsey     [:foo "0.0"]
   ; version is not a string
