@@ -70,7 +70,7 @@
   (fact "Getting the dependency name"
     (dep-name ?dep) => ?name
     (provided
-      (dep-spec? ?dep) => truthy))
+      (dep-spec? ?dep) => true))
   ?name                  ?dep
   'org.clojure/clojure   ['org.clojure/clojure "1.3.0"]
   'lein-tarsier          ['lein-tarsier "0.9.1"]
@@ -84,7 +84,7 @@
     (fact "Checking for whether or not a dependency is in the project."
       (has-dep? ?project ?dep) => ?expected
       (provided
-        (dep? ?dep) => truthy))
+        (dep? ?dep) => true))
     ?dep                             ?project            ?expected
     'org.clojure/clojure             sample-project      truthy
     ['org.clojure/clojure "1.4.0"]   sample-project      truthy
@@ -97,9 +97,7 @@
                                      ['vimclojure/server "2.3.1"]]}]
   (tabular
     (fact "Add a missing dependency to the project."
-      (add-if-missing ?project ?spec) => ?result
-      (provided
-        (dep-spec? ?spec) => truthy))
+      (add-if-missing ?project ?spec) => ?result)
     ?spec                            ?project            ?result
     ['org.clojure/clojure "1.4.0"]   sample-project      sample-project
     ['org.clojure/clojure "1.2.1"]   sample-project      sample-project
@@ -116,8 +114,8 @@
   (fact
     (without-clojure ?spec) => ?result
     (provided
-      (dep-spec? ?spec) => truthy
-      (dep-spec? ?result) => truthy))
+      (dep-spec? ?spec) => true
+      (dep-spec? ?result) => true))
   ?spec                            ?result
   ['lein-tarsier "0.9.1"]          ['lein-tarsier "0.9.1" :exclusions ['org.clojure/core]]
   ['vimclojure/server "2.3.1"]     ['vimclojure/server "2.3.1" :exclusions ['org.clojure/core]]
