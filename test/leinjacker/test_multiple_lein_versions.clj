@@ -19,7 +19,7 @@
 ;; install leinjacker for the test project to use
 (install/install (utils/read-lein-project))
 
-(fact "run lein1 tests."
+#_(fact "run lein1 tests."
   ;; lein1 needs deps resolved to see the installed leinjacker
   (runner/run-lein "1" "deps" :dir "test-project")
   (run-lein-on-sub-project "1") => 0)

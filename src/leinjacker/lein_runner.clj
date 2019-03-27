@@ -34,7 +34,7 @@
                   ["lein" (str "lein" generation)])]
       cmd
       (throw (IllegalStateException.
-              (format "Unable to find Leiningen %s in the path as lein or lein %s. Please make sure it is installed and in your path under one of those names, or set LEIN%s_CMD."
+              (format "Unable to find Leiningen %s in the path as lein or lein%s. Please make sure it is installed and in your path under one of those names, or set LEIN%s_CMD."
                       generation generation generation))))))
 
 (defn find-lein-cmd
