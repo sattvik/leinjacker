@@ -9,4 +9,4 @@
                                   [org.clojure/clojure "1.4.0"]]
                    :eval-in :leiningen}
              :1.2 {:dependencies [[org.clojure/clojure "1.2.1"]]}}
-  :lein-release {:deploy-via :clojars})
+  :deploy-repositories {"releases" {:url "https://repo.clojars.org" :creds :gpg}})
